@@ -1,0 +1,396 @@
+<title>Documentos de tu Portillo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --blue:#2AA7E0; --bright:#2FBFF2; --light:#62D0F8;
+  --ink:#13202A; --muted:#5A6A75; --line:#DCE7EE;
+  --ground:#FFFFFF; --soft:#EEF8FD; --surface:#FFFFFF;
+  --accent-text:#1C7FB0; --on-blue:#FFFFFF; --warn:#B45309; --warn-bg:#FFF6E8;
+  --display:"Sora",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ink:#E6F1F7; --muted:#9DB0BC; --line:#25343E;
+    --ground:#0C151B; --soft:#12212B; --surface:#15222B;
+    --accent-text:#62D0F8; --on-blue:#07131A; --warn:#F5B35C; --warn-bg:#2A2012;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ink:#E6F1F7; --muted:#9DB0BC; --line:#25343E;
+  --ground:#0C151B; --soft:#12212B; --surface:#15222B;
+  --accent-text:#62D0F8; --on-blue:#07131A; --warn:#F5B35C; --warn-bg:#2A2012;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;padding-inline:16px}
+.wrap{max-width:680px;margin:0 auto;padding-block:20px 48px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.2}
+p{margin:0}
+a{color:var(--accent-text)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--bright);outline-offset:2px;border-radius:6px}
+
+/* header */
+.brand{font-family:var(--display);font-weight:700;letter-spacing:.22em;font-size:13px;color:var(--accent-text)}
+.hero{display:flex;flex-direction:column;gap:12px}
+.hero h1{font-size:clamp(28px,7vw,40px);font-weight:700}
+.hero h1 span{color:var(--blue)}
+.lead{color:var(--muted);font-size:17px;max-width:60ch}
+
+/* delivered checklist */
+.done{background:var(--soft);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.done h2{font-size:17px}
+.checks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+.checks li{display:flex;gap:8px;align-items:flex-start;font-size:15px}
+.checks li::before{content:"";flex:none;width:18px;height:18px;margin-top:3px;border-radius:50%;background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+@media (max-width:460px){.checks{grid-template-columns:1fr}}
+
+/* chips nav */
+.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);margin-inline:-16px;padding:10px 16px;display:flex;gap:8px;overflow-x:auto;border-bottom:1px solid var(--line);scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;text-decoration:none;font-weight:600;font-size:14px;color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;white-space:nowrap}
+.chips a:hover{border-color:var(--blue);color:var(--accent-text)}
+
+/* year strip */
+.section-title{display:flex;flex-direction:column;gap:6px}
+.section-title h2{font-size:22px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text)}
+.months{display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
+.m{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted)}
+.m i{display:block;width:100%;height:36px;border-radius:6px;background:var(--soft)}
+.m.hot i{background:var(--blue)}
+.m.mid i{background:var(--light)}
+.m.hot,.m.mid{color:var(--ink)}
+.legend{display:flex;flex-direction:column;gap:8px;font-size:15px}
+.legend div{display:flex;gap:10px;align-items:flex-start}
+.sw{flex:none;width:14px;height:14px;border-radius:4px;margin-top:4px}
+
+/* doc cards */
+.doc{border:1px solid var(--line);border-radius:18px;background:var(--surface);overflow:hidden;scroll-margin-top:64px}
+.doc-head{padding:20px 20px 16px;display:flex;flex-direction:column;gap:8px;border-top:6px solid var(--blue)}
+.doc-head h2{font-size:22px}
+.aka{font-size:14px;color:var(--muted)}
+.doc-body{padding:0 20px 20px;display:flex;flex-direction:column;gap:18px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.fact{background:var(--soft);padding:12px;display:flex;flex-direction:column;gap:2px}
+.fact b{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.fact span{font-weight:600;font-size:15px;line-height:1.35}
+@media (max-width:520px){.facts{grid-template-columns:1fr}}
+.block{display:flex;flex-direction:column;gap:8px}
+.block h3{font-size:16px}
+ol,ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.tips{list-style:none;padding:0}
+.tips li{position:relative;padding-left:22px}
+.tips li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--bright);transform:rotate(45deg)}
+.note{background:var(--soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.alert{background:var(--warn-bg);color:var(--ink);border-radius:12px;padding:14px 16px;font-size:15px}
+.alert b{color:var(--warn)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;align-self:flex-start;text-decoration:none;font-weight:700;background:var(--blue);color:var(--on-blue);padding:11px 18px;border-radius:999px;font-size:15px}
+.btn:hover{background:var(--bright)}
+.btn.ghost{background:transparent;color:var(--accent-text);border:1.5px solid var(--blue)}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+
+/* compare table */
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td:first-child{font-weight:600}
+
+/* homologation timeline */
+.tl{display:flex;flex-direction:column;gap:10px}
+.tl-axis,.tl-row{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+.tl-axis span{font-size:12px;font-weight:600;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.tl-row{align-items:stretch}
+.seg{height:30px;border-radius:6px;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.1}
+.s-free{background:var(--blue);color:var(--on-blue)}
+.s-win{background:repeating-linear-gradient(135deg,var(--blue) 0 6px,var(--light) 6px 12px);color:var(--ink)}
+.s-ext{background:var(--light);color:#07131A}
+.s-rt{background:var(--soft);color:var(--muted)}
+.tl-label{font-size:14px;font-weight:600;margin-top:4px}
+
+.contact{background:var(--ink);color:var(--ground);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.contact h2{font-size:20px}
+.contact p{opacity:.85}
+.contact .btn{background:var(--bright);color:#07131A}
+.foot{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="brand">PORTILLO</div>
+    <h1>Los documentos de tu auto nuevo, <span>claros y al día</span></h1>
+    <p class="lead">Todo lo que necesitas saber sobre el padrón, el permiso de circulación, el SOAP y el certificado de homologación: qué son, cuándo los tienes y cuándo se renuevan.</p>
+  </header>
+
+  <section class="done" aria-labelledby="done-t">
+    <h2 id="done-t">Nosotros ya nos encargamos de todo esto</h2>
+    <ul class="checks">
+      <li>Inscripción en el Registro Civil</li>
+      <li>Placas patentes instaladas</li>
+      <li>Patente grabada en vidrios y espejos</li>
+      <li>Primer permiso de circulación</li>
+      <li>Primer SOAP</li>
+      <li>Certificado de homologación</li>
+    </ul>
+  </section>
+
+  <nav class="chips" aria-label="Ir a cada documento">
+    <a href="#calendario">Calendario</a>
+    <a href="#padron">Padrón</a>
+    <a href="#permiso">Permiso de circulación</a>
+    <a href="#soap">SOAP</a>
+    <a href="#homologacion">Homologación</a>
+  </nav>
+
+  <!-- CALENDARIO -->
+  <section id="calendario" class="section-title" style="gap:16px;scroll-margin-top:64px">
+    <div class="section-title">
+      <span class="eyebrow">Tu año con el auto</span>
+      <h2>Lo que se renueva cada año</h2>
+    </div>
+    <div class="months" role="img" aria-label="Febrero y marzo: SOAP y permiso de circulación. Agosto: segunda cuota del permiso.">
+      <div class="m"><i></i>E</div>
+      <div class="m hot"><i></i>F</div>
+      <div class="m hot"><i></i>M</div>
+      <div class="m"><i></i>A</div>
+      <div class="m"><i></i>M</div>
+      <div class="m"><i></i>J</div>
+      <div class="m"><i></i>J</div>
+      <div class="m mid"><i></i>A</div>
+      <div class="m"><i></i>S</div>
+      <div class="m"><i></i>O</div>
+      <div class="m"><i></i>N</div>
+      <div class="m"><i></i>D</div>
+    </div>
+    <div class="legend">
+      <div><span class="sw" style="background:var(--blue)"></span><span><b>Febrero y marzo (hasta el 31):</b> primero contrata tu SOAP y luego paga tu permiso de circulación, completo o en 2 cuotas.</span></div>
+      <div><span class="sw" style="background:var(--light)"></span><span><b>Agosto:</b> si elegiste pagar en 2 cuotas, paga la segunda.</span></div>
+    </div>
+  </section>
+
+  <!-- PADRÓN -->
+  <article id="padron" class="doc">
+    <div class="doc-head">
+      <span class="eyebrow">Documento 1</span>
+      <h2>Certificado de inscripción (padrón)</h2>
+      <p class="aka">Acredita que eres el dueño del auto. Lo emite el Registro Civil.</p>
+    </div>
+    <div class="doc-body">
+      <div class="facts">
+        <div class="fact"><b>Cuándo</b><span>Entre 25 y 35 días después de la compra</span></div>
+        <div class="fact"><b>Dónde</b><span>Sitio web del Registro Civil</span></div>
+        <div class="fact"><b>¿Se renueva?</b><span>No. No vence</span></div>
+      </div>
+      <p>Contiene los datos de tu auto (marca, modelo, año, color, número de motor y de chasis, placa patente) y tus datos como propietario. Si el auto es de una empresa, sale a nombre de su razón social y RUT.</p>
+      <div class="block">
+        <h3>Cómo descargarlo</h3>
+        <ol>
+          <li>Entra al sitio del Registro Civil.</li>
+          <li>Elige <b>Vehículos</b> y luego <b>Certificado inscripción (padrón)</b>.</li>
+          <li>Escribe la placa patente de tu auto.</li>
+          <li>Ingresa con tu <b>ClaveÚnica</b>.</li>
+          <li>Paga el certificado (tiene un costo bajo) y descarga el PDF.</li>
+        </ol>
+      </div>
+      <p class="note">También puedes pedirlo en cualquier oficina del Registro Civil. Si es una empresa y no puede descargarlo en línea, puede solicitarlo en una oficina con los antecedentes de la empresa.</p>
+      <div class="block">
+        <h3>Tips</h3>
+        <ul class="tips">
+          <li><b>Revisa los datos apenas lo descargues:</b> nombre o razón social, RUT, patente, motor y chasis. Si algo está mal, avísanos.</li>
+          <li>Guarda el PDF en tu teléfono y una copia impresa en la guantera.</li>
+          <li>Descárgalo solo en el sitio oficial. Hay páginas que cobran de más por hacerlo.</li>
+          <li>Si pasaron más de 35 días y no aparece, escríbenos y revisamos tu inscripción.</li>
+        </ul>
+      </div>
+      <p class="alert"><b>No es "la patente".</b> El padrón no se paga cada año. "Pagar la patente" es como se le dice al permiso de circulación.</p>
+      <div class="btns">
+        <a class="btn" href="https://www.registrocivil.cl" target="_blank" rel="noopener">Ir al Registro Civil</a>
+        <a class="btn ghost" href="https://www.chileatiende.gob.cl/fichas/3412-certificado-de-inscripcion-de-vehiculos-motorizados-padron" target="_blank" rel="noopener">Ficha ChileAtiende</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- PERMISO -->
+  <article id="permiso" class="doc">
+    <div class="doc-head">
+      <span class="eyebrow">Documento 2</span>
+      <h2>Permiso de circulación</h2>
+      <p class="aka">También conocido como "pagar la patente". Es un impuesto municipal anual.</p>
+    </div>
+    <div class="doc-body">
+      <div class="facts">
+        <div class="fact"><b>El primero</b><span>Lo gestionamos nosotros</span></div>
+        <div class="fact"><b>Renovación</b><span>1 de febrero al 31 de marzo</span></div>
+        <div class="fact"><b>Dónde</b><span>Cualquier municipalidad</span></div>
+      </div>
+      <div class="block">
+        <h3>Cómo se paga</h3>
+        <ul>
+          <li><b>En 1 cuota:</b> entre el 1 de febrero y el 31 de marzo.</li>
+          <li><b>En 2 cuotas:</b> la primera entre febrero y marzo, y la segunda del 1 al 31 de agosto (se reajusta por IPC).</li>
+        </ul>
+        <p>Puedes pagarlo en cualquier municipalidad del país, y la mayoría permite hacerlo en línea con tu placa patente. El valor depende de la tasación fiscal de tu auto.</p>
+      </div>
+      <div class="block">
+        <h3>Qué necesitas para renovarlo</h3>
+        <ul>
+          <li>Permiso de circulación del año anterior.</li>
+          <li><b>SOAP vigente.</b> Sin SOAP no puedes pagar el permiso.</li>
+          <li>Certificado de homologación vigente, o revisión técnica cuando este termine.</li>
+          <li>No tener multas de tránsito impagas.</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Tips</h3>
+        <ul class="tips">
+          <li>Tu auto nuevo ya tiene su primer permiso. Tu primera renovación es en el febrero–marzo siguiente.</li>
+          <li>Revisa antes de marzo si tienes multas impagas: bloquean la renovación.</li>
+          <li>Si pagas atrasado se cobran intereses (1,5% mensual) más IPC, y circular sin permiso puede significar multa.</li>
+          <li>Si eliges 2 cuotas, anota la segunda en tu calendario de agosto.</li>
+          <li>¿Auto eléctrico o híbrido enchufable? La Ley 21.505 te da una rebaja parcial. La municipalidad calcula el monto.</li>
+          <li>Paga solo en el sitio oficial de la municipalidad y desconfía de links por SMS.</li>
+        </ul>
+      </div>
+      <div class="btns">
+        <a class="btn" href="https://www.chileatiende.gob.cl/fichas/9611-permiso-de-circulacion" target="_blank" rel="noopener">Ficha ChileAtiende</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- SOAP -->
+  <article id="soap" class="doc">
+    <div class="doc-head">
+      <span class="eyebrow">Documento 3</span>
+      <h2>SOAP</h2>
+      <p class="aka">Seguro Obligatorio de Accidentes Personales. Cubre a las personas en un accidente de tránsito.</p>
+    </div>
+    <div class="doc-body">
+      <div class="facts">
+        <div class="fact"><b>El primero</b><span>Lo gestionamos nosotros</span></div>
+        <div class="fact"><b>Vence</b><span>31 de marzo de cada año</span></div>
+        <div class="fact"><b>Dónde</b><span>La aseguradora que prefieras</span></div>
+      </div>
+      <p>Cubre las lesiones y la muerte del conductor, los pasajeros y terceros, como peatones, sin importar quién tuvo la culpa. Se renueva junto con el permiso de circulación y es requisito para pagarlo.</p>
+      <div class="block">
+        <h3>SOAP no es lo mismo que el seguro automotriz</h3>
+        <div class="tbl">
+          <table>
+            <thead><tr><th></th><th>SOAP</th><th>Seguro automotriz</th></tr></thead>
+            <tbody>
+              <tr><td>Obligatorio</td><td>Sí, por ley</td><td>No, es voluntario</td></tr>
+              <tr><td>Cubre</td><td>Lesiones y muerte de personas</td><td>Daños, robo y responsabilidad civil, según el plan</td></tr>
+              <tr><td>Daños a tu auto</td><td>No</td><td>Sí, según la póliza</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="block">
+        <h3>Coberturas (SOAP contratado desde el 9 de febrero de 2026)</h3>
+        <div class="tbl">
+          <table>
+            <tbody>
+              <tr><td>Muerte</td><td>600 UF por persona</td></tr>
+              <tr><td>Incapacidad permanente total</td><td>600 UF por persona</td></tr>
+              <tr><td>Incapacidad permanente parcial</td><td>Hasta 400 UF por persona</td></tr>
+              <tr><td>Gastos médicos y hospitalarios</td><td>Hasta 600 UF por persona</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="block">
+        <h3>Tips</h3>
+        <ul class="tips">
+          <li>Hay muchas alternativas en el mercado. La cobertura es la misma en todas, lo que cambia es el precio.</li>
+          <li><b>Revisa bien la placa patente al contratar:</b> el SOAP no se puede modificar después.</li>
+          <li>Contrátalo en febrero, antes de pagar el permiso de circulación.</li>
+          <li>Si hay un accidente con lesionados, ve a un servicio de urgencia e indica que es un accidente de tránsito.</li>
+          <li>Tienes un año desde el accidente para cobrar el SOAP.</li>
+        </ul>
+      </div>
+      <div class="btns">
+        <a class="btn" href="https://www.cmfchile.cl/educa/621/w3-propertyvalue-565.html" target="_blank" rel="noopener">Información y precios en la CMF</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- HOMOLOGACIÓN -->
+  <article id="homologacion" class="doc">
+    <div class="doc-head">
+      <span class="eyebrow">Documento 4</span>
+      <h2>Certificado de homologación</h2>
+      <p class="aka">Acredita que tu auto cumple las normas chilenas y reemplaza la revisión técnica durante los primeros años.</p>
+    </div>
+    <div class="doc-body">
+      <div class="facts">
+        <div class="fact"><b>Lo emite</b><span>El fabricante de tu auto</span></div>
+        <div class="fact"><b>Duración</b><span>3 a 4 años, según tu patente</span></div>
+        <div class="fact"><b>Extensión</b><span>Hasta 2 años más</span></div>
+      </div>
+      <p>Por la nueva normativa (Decreto N° 104 del MTT, 2026), los autos nuevos vendidos desde el 18 de junio de 2026 hacen su primera revisión técnica <b>entre los 3 y 4 años</b> desde la emisión del certificado. El mes exacto depende del <b>último dígito de tu placa patente</b>.</p>
+
+      <div class="block">
+        <h3>Tus mantenciones en la red oficial suman años</h3>
+        <div class="tl" role="img" aria-label="Sin extensión, revisión técnica entre el año 3 y 4. Con dos extensiones de 12 meses, hasta el año 6.">
+          <div class="tl-axis"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6 años</span></div>
+          <div class="tl-label">Sin extensión</div>
+          <div class="tl-row">
+            <div class="seg s-free" style="grid-column:1 / 4">Sin revisión técnica</div>
+            <div class="seg s-win" style="grid-column:4 / 5">RT</div>
+            <div class="seg s-rt" style="grid-column:5 / 7">Revisión anual</div>
+          </div>
+          <div class="tl-label">Con mantenciones al día y 2 extensiones</div>
+          <div class="tl-row">
+            <div class="seg s-free" style="grid-column:1 / 4">Sin revisión técnica</div>
+            <div class="seg s-free" style="grid-column:4 / 5">Base</div>
+            <div class="seg s-ext" style="grid-column:5 / 6">+12 m</div>
+            <div class="seg s-ext" style="grid-column:6 / 7">+12 m</div>
+          </div>
+          <p class="aka"><b>RT</b>: primera revisión técnica, entre el año 3 y 4 según el último dígito de tu patente. Con 2 extensiones llegas hasta el año 6.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Cómo extenderlo</h3>
+        <ul>
+          <li>Haz <b>todas las mantenciones</b> que indica el fabricante, por kilometraje o tiempo.</li>
+          <li>Hazlas en un <b>concesionario o taller oficial de la marca</b>.</li>
+          <li>Pide la extensión <b>antes de que venza</b>. Si ya venció, no se puede extender.</li>
+          <li>Cada extensión suma 12 meses, hasta 2 veces.</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Tips</h3>
+        <ul class="tips">
+          <li>Anota cuándo vence tu certificado. Sin homologación ni revisión técnica vigentes no puedes renovar tu permiso de circulación.</li>
+          <li>Cuando termine, harás la revisión técnica cada año, en el mes que corresponde a tu patente.</li>
+          <li>El grabado de la patente en vidrios y espejos es requisito para la revisión técnica. Si cambias un vidrio, vuelve a grabarlo.</li>
+          <li>¿Tu auto se vendió antes del 18 de junio de 2026? Mantiene la regla anterior: 2 a 3 años, extensible hasta 5.</li>
+        </ul>
+      </div>
+      <p class="note">¿No tienes tu certificado o quieres pedir la extensión? Solicítalo en nuestro formulario de contacto.</p>
+      <div class="btns">
+        <!-- Reemplazar href por el link real del formulario -->
+        <a class="btn" href="[LINK FORMULARIO DE CONTACTO]" target="_blank" rel="noopener">Formulario de contacto</a>
+      </div>
+    </div>
+  </article>
+
+  <section class="contact">
+    <h2>Lleva siempre en tu auto</h2>
+    <p>Padrón, permiso de circulación y SOAP vigentes, certificado de homologación (o revisión técnica) y tu licencia de conducir. Guarda una copia impresa en la guantera y los PDF en tu teléfono.</p>
+    <p>¿Tienes dudas con algún documento? Estamos para ayudarte.</p>
+    <!-- Reemplazar href por el link real del formulario -->
+    <a class="btn" href="[LINK FORMULARIO DE CONTACTO]" target="_blank" rel="noopener">Escríbenos</a>
+  </section>
+
+  <footer class="foot">
+    <p>Información para vehículos nuevos. Normativa revisada al 25 de septiembre de 2026.</p>
+    <p>Fuentes: Registro Civil, ChileAtiende, CMF y Ministerio de Transportes y Telecomunicaciones.</p>
+  </footer>
+</div>
